@@ -6,7 +6,7 @@
 #    By: nle-bret <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/23 22:03:57 by nle-bret          #+#    #+#              #
-#    Updated: 2021/12/07 15:59:47 by nle-bret         ###   ########.fr        #
+#    Updated: 2021/12/09 11:46:04 by nle-bret         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ OBJS	= ${SRCS:.c=.o}
 
 B_OBJS	= ${BONUS:.c=.o}
 
-CC		= gcc
+CC		= clang
 
 ${NAME}: ${OBJS}
 	ar rc ${NAME} ${OBJS}
