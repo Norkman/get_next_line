@@ -12,49 +12,29 @@
 
 # include "get_next_line.h"
 
-int		ft_strlen(const char *a)
+char	*get_buffer(char *buffer, long int size_of_buffer)
 {
-	int	i;
+	static char		*buffer_tmp;
 
-	i = 0;
-	while (a[i] != 0)
-	{
-		i++;
-	}
-	return (i);
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t	len;
-
-	len = ft_strlen(src);
-	if (len + 1 < size)
-	{
-		ft_memcpy(dst, src, len + 1);
-	}
-	else if (size != 0)
-	{
-		ft_memcpy(dst, src, size - 1);
-		dst[size - 1] = '\0';
-	}
-	return ((size_t)len);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-	int		len1;
-	int		len2;
-
-	if (!(s2))
-		return ();
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	str = malloc(sizeof(*str) * (len1 + len2 + 1));
-	if (str == NULL)
+	size_of_buffer = 50;
+	buffer_tmp = malloc(sizeof(*buffer_tmp) * (size_of_buffer + 1));
+	if (buffer_tmp == NULL)
 		return (NULL);
-	ft_strlcpy(str, s1, len1 + 1);
-	ft_strlcpy(str + len1, s2, len2 + 1);
-	return (str);
+	buffer = buffer_tmp;
+	buffer[size_of_buffer] = '\0';
+	//size_of_buffer = size_of_buffer * 2;
+	return (buffer);
+}
+
+int		ft_find(int fd, char *buffer)
+{
+	long int		i;
+
+	i = 1;
+	i = read(fd, buffer, 50);
+	if (i == -1)
+	{
+		return (-1);
+	}
+	return (0);
 }

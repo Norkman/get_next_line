@@ -15,9 +15,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# define BUFFER_SIZE 50
+int		ft_strlen(const char *a);
 
-char		*get_next_line(int fd);
-char		*get_buffer(char *buff); 
-int			ft_find(int fd, char *buffer);
 #endif
 

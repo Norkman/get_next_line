@@ -36,7 +36,7 @@ OBJS	= ${SRCS:.c=.o}
 
 B_OBJS	= ${BONUS:.c=.o}
 
-CC		= clang
+CC		= gcc
 
 ${NAME}: ${OBJS}
 	ar rc ${NAME} ${OBJS}
