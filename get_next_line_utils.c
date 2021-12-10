@@ -17,6 +17,8 @@ int		ft_strlen(const char *a)
 	int	i;
 
 	i = 0;
+	if (a == NULL)
+		return (0);
 	while (a[i] != 0)
 	{
 		i++;
@@ -24,7 +26,26 @@ int		ft_strlen(const char *a)
 	return (i);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+void	*ft_memcpy(char *dst, const char *src, size_t n)
+{
+	size_t			i;
+	unsigned char	*dst2;
+	unsigned char	*src2;
+
+	if (!dst && !src)
+		return (0);
+	dst2 = (unsigned char *)dst;
+	src2 = (unsigned char *)src;
+	i = 0;
+	while (i < n && src[i] != '\n')
+	{
+		dst2[i] = src2[i];
+		i++;
+	}
+	return (dst);
+}
+
+void	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	len;
 
@@ -38,19 +59,19 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 		ft_memcpy(dst, src, size - 1);
 		dst[size - 1] = '\0';
 	}
-	return ((size_t)len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*str;
-	int		len1;
-	int		len2;
-
-	if (!(s2))
-		return ();
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
+	char			*str;
+	long int		len1;
+	long int		len2;
+	
+	if (s1 != NULL)
+		len1 = ft_strlen(s1);
+	else
+		len1 = 0;
+	len2 = is_back_slash_n(s2);
 	str = malloc(sizeof(*str) * (len1 + len2 + 1));
 	if (str == NULL)
 		return (NULL);

@@ -12,7 +12,7 @@
 
 # include "get_next_line.h"
 
-ssize_t	fill_buffer(int fd, char* buffer, long int size_of_bufer)
+ssize_t	fill_buffer(int fd, char* buffer)
 {
 	int	ret;
 
@@ -27,53 +27,82 @@ ssize_t	fill_buffer(int fd, char* buffer, long int size_of_bufer)
 
 int	is_back_slash_n(char *buffer)
 {
+	long int	i;
+
+	i = 0;
+	if (buffer == NULL)
+		return (0);
 	while (buffer[i] != '\0')
 	{
 		if (buffer[i] == '\n')
-		{
-			printf ("\n\nHERE !!!!\n\n");
-			return (0);
-		}
+			return (i);
 		i++;
 	}
-	return (1);
+	return (i);
 }
 
-void	put_in_save(char *buffer, ssize_t ret)
+char	*buffer_nl_save(char *buffer, ssize_t begin)
 {
+	char		*buffer_tmp;
 	long int	len;
-	char		*save_buffer;
+	long int	i;
 
-	len = ft_strlen(save_buffer);
-	save_buffer = malloc(sizeof(*save_buffer) * (len + ret + 1));
-	if (save_buffer == NULL)
-		return (NULL);
-	save_buffer = ft_strjoin(save_buffer, buffer);
+	len = ft_strlen(buffer);
+	buffer_tmp = malloc(sizeof(*buffer_tmp) * (len - begin + 1));
+	while (begin + i < len)
+	{
+		buffer_tmp[i] = buffer[begin + i];
+		i++;
+	}
+	buffer_tmp[i] = '\0';
+	return (buffer_tmp);
+}
+
+char	*put_in_save(char *buffer, char *buffer_save, ssize_t ret)
+{
+	//static char	*buffer_nl;
+
+	//buffer_nl = NULL;
+	if (buffer_save == NULL)
+	{
+		buffer_save = NULL;
+		buffer_save = ft_strjoin(buffer_save, buffer);
+	}
+	buffer_save = ft_strjoin(buffer_save, buffer);
+	if (ret != BUFFER_SIZE)
+	{
+		//buffer_nl = buffer_nl_save(buffer, ret);
+		//printf("\n%s\n", buffer_nl);
+		printf("OK");
+	}
+	return (buffer_save);
 }
 
 char	*get_next_line(int fd)
 {
-	static long int	BUFFER_SIZE;
 	char			*buffer;
-	int				index;
+	char			*buffer_save;
+	long int		index;
 	ssize_t			ret;
 
-	index = 1;
-	BUFFER_SIZE = 50;
-	buffer = malloc(sizeof(*buffer) * (BUFFER_SIZE + 1));
-		if (buffer == NULL)
-			return (0);
-	while (index == 1)
+	index = BUFFER_SIZE;
+	buffer_save = NULL;
+	while (index == BUFFER_SIZE)
 	{
-		ret = fill_buffer(fd, buffer, BUFFER_SIZE);
+		buffer = malloc(sizeof(*buffer) * (BUFFER_SIZE + 1));
+			if (buffer == NULL)
+				return (0);
+		ret = fill_buffer(fd, buffer);
 		if (ret == -1)
 			return (0); // mouaiiiiiiis
 		index = is_back_slash_n(buffer);
-		put_in_save(buffer, BUFFER_SIZE, ret);
-		index = 0;
+		buffer_save = put_in_save(buffer, buffer_save, index);
 	}
 
-	printf("\n%d", index);
-	printf("\n%s", buffer);
-	return ("\nSTOP\n");
+
+
+	printf("\n------------The last buffer is :------------"
+			"\n%s\n\n------------And the buffer_save is :-------------"
+			"\n%s\n", buffer, buffer_save);
+	return ("\n------------STOP-------------\n");
 }
