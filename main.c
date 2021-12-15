@@ -17,21 +17,21 @@ int	main(void)
 {
 	int			fd;
 	char		*src;
-	//char		car;
-	//int	i;
+	int			max;
+	int 		i;
 
+	src = NULL;
+	i = 0;
+	max = 4;
 	fd = open("text", O_RDONLY);
-	//i = 1;
-	//car = 0;
-	src = get_next_line(fd);
-	printf("%s", src);
-	/*
-	while (i != 0)
+	while (i < max)
 	{
-		i = read(fd, &car, 1);
-		printf("%ld", i);
+		src = get_next_line(fd);
+		printf("\n ====>  %s\n", src);
+		i++;
 	}
-	*/
+	src = NULL;
+	printf("%s", src);
 	close(fd);
 	return (0);
 }
