@@ -63,7 +63,8 @@ char	*put_in_save(char *buffer, char *buffer_save, ssize_t index , ssize_t ret)
 {
 	static char	*buffer_nl;
 
-	buffer_nl = NULL;
+	printf("\n%s\n", buffer_nl);
+	//buffer_nl = NULL;
 	if (index != BUFFER_SIZE && ret != -1)
 	{
 		buffer_nl = buffer_nl_save(buffer, index);
@@ -71,7 +72,11 @@ char	*put_in_save(char *buffer, char *buffer_save, ssize_t index , ssize_t ret)
 		//printf("OK");
 	}
 	if (buffer_save == NULL)
-		buffer_save = ft_strjoin(buffer_save, buffer_nl);
+	{
+		buffer_save = buffer_nl;
+		//buffer_save = ft_strjoin(buffer_save, buffer_nl);
+		printf("\nok\n");
+	}
 	buffer_save = ft_strjoin(buffer_save, buffer);
 	return (buffer_save);
 }
