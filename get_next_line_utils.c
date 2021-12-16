@@ -42,6 +42,7 @@ void	*ft_memcpy(char *dst, const char *src, size_t n)
 		dst2[i] = src2[i];
 		i++;
 	}
+	//dst2[i] = src2[i];
 	return (dst);
 }
 

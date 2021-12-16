@@ -28,6 +28,7 @@ int	main(void)
 	{
 		src = get_next_line(fd);
 		printf("\n ====>  %s\n", src);
+		free(src);
 		i++;
 	}
 	close(fd);
