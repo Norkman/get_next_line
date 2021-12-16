@@ -52,20 +52,19 @@ char	*buffer_nl_save(char *buffer, ssize_t begin)
 	buffer_tmp = malloc(sizeof(*buffer_tmp) * (len - begin + 1));
 	while (begin + i < len)
 	{
-		buffer_tmp[i] = buffer[begin + i];
+		buffer_tmp[i] = buffer[begin + i + 1];
 		i++;
 	}
 	buffer_tmp[i] = '\0';
 	return (buffer_tmp);
 }
 
-char	*put_in_save(char *buffer, char *buffer_save, ssize_t index , ssize_t ret)
+char	*put_in_save(char *buffer, char *buffer_save, ssize_t index, int fd)
 {
 	static char	*buffer_nl;
 
-	printf("\n%s\n", buffer_nl);
 	//buffer_nl = NULL;
-	if (index != BUFFER_SIZE && ret != -1)
+	if (index != BUFFER_SIZE)
 	{
 		buffer_nl = buffer_nl_save(buffer, index);
 		//printf("\n%s\n", buffer_nl);
@@ -73,10 +72,13 @@ char	*put_in_save(char *buffer, char *buffer_save, ssize_t index , ssize_t ret)
 	}
 	if (buffer_save == NULL)
 	{
-		buffer_save = buffer_nl;
-		//buffer_save = ft_strjoin(buffer_save, buffer_nl);
-		printf("\nok\n");
+		//buffer_save = buffer_nl;
+		//printf("\n%s\n", buffer_nl);
+		buffer_save = ft_strjoin(buffer_save, buffer_nl);
+		//printf("\n%s\n", buffer_save);
+		//printf("\nok\n");
 	}
+	printf("%d", fd);
 	buffer_save = ft_strjoin(buffer_save, buffer);
 	return (buffer_save);
 }
@@ -97,12 +99,10 @@ char	*get_next_line(int fd)
 				return (0);
 		ret = fill_buffer(fd, buffer);
 		if (ret == -1)
-			return (0); // mouaiiiiiiis
+			return (0);
 		index = is_back_slash_n(buffer);
-		buffer_save = put_in_save(buffer, buffer_save, index, ret);
+		buffer_save = put_in_save(buffer, buffer_save, index, fd);
 	}
-
-
 	/*
 	printf("\n------------The last buffer is :------------"
 			"\n%s\n\n------------And the buffer_save is :-------------"

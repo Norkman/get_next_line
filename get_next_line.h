@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# define BUFFER_SIZE 50
+# define BUFFER_SIZE 42
 
 int		ft_strlen(const char *a);
 char	*ft_strjoin(char *s1, char *s2);

@@ -22,7 +22,7 @@ int	main(void)
 
 	src = NULL;
 	i = 0;
-	max = 4;
+	max = 5;
 	fd = open("text", O_RDONLY);
 	while (i < max)
 	{
@@ -30,8 +30,6 @@ int	main(void)
 		printf("\n ====>  %s\n", src);
 		i++;
 	}
-	src = NULL;
-	printf("%s", src);
 	close(fd);
 	return (0);
 }

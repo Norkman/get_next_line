@@ -67,15 +67,14 @@ char	*ft_strjoin(char *s1, char *s2)
 	long int		len1;
 	long int		len2;
 	
-	if (s1 != NULL)
-		len1 = ft_strlen(s1);
-	else
-		len1 = 0;
+	len1 = ft_strlen(s1);
 	len2 = is_back_slash_n(s2);
 	str = malloc(sizeof(*str) * (len1 + len2 + 1));
 	if (str == NULL)
 		return (NULL);
 	ft_strlcpy(str, s1, len1 + 1);
 	ft_strlcpy(str + len1, s2, len2 + 1);
+	free(s1);
+	free(s2);
 	return (str);
 }
