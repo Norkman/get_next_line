@@ -6,7 +6,7 @@
 /*   By: nle-bret <nle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:17:43 by nle-bret          #+#    #+#             */
-/*   Updated: 2021/12/08 13:34:40 by nle-bret         ###   ########.fr       */
+/*   Updated: 2021/12/18 01:33:18 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,13 @@ int	main(void)
 {
 	int			fd;
 	char		*src;
-	int			max;
-	int 		i;
 
 	src = NULL;
-	i = 0;
-	max = 5;
 	fd = open("text", O_RDONLY);
-	while (i < max)
+	while ((src = get_next_line(fd)))
 	{
-		src = get_next_line(fd);
-		printf("\n ====>  %s\n", src);
+		printf("-%s", src);
 		free(src);
-		i++;
 	}
 	close(fd);
 	return (0);

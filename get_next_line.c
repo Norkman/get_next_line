@@ -6,13 +6,13 @@
 /*   By: nle-bret <nle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:25:53 by nle-bret          #+#    #+#             */
-/*   Updated: 2021/12/09 11:53:05 by nle-bret         ###   ########.fr       */
+/*   Updated: 2021/12/18 01:30:21 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "get_next_line.h"
+#include "get_next_line.h"
 
-ssize_t	fill_buffer(int fd, char* buffer)
+ssize_t	fill_buffer(int fd, char *buffer)
 {
 	int	ret;
 
@@ -61,25 +61,25 @@ char	*buffer_nl_save(char *buffer, ssize_t begin)
 	return (buffer_tmp);
 }
 
-char	*put_in_save(char *buffer, char *buffer_save, ssize_t index, ssize_t ret)
+char	*ft_save_buffer(char **buffer, char *buffer_save, int fd)
 {
-	static char		*buffer_nl;
+	char		*buffer_tmp;
+	long int	index;
+	ssize_t		ret;
 
-	if (index != ret)
+	index = BUFFER_SIZE;
+	buffer_tmp = malloc(sizeof(*buffer_tmp) * (BUFFER_SIZE + 1));
+	if (buffer_tmp == NULL)
+		return (0);
+	while (index == BUFFER_SIZE)
 	{
-		buffer_nl = buffer_nl_save(buffer, index);
-		//printf("\n%s\n", buffer_nl);
-		//printf("OK");
+		ret = fill_buffer(fd, buffer_tmp);
+		if (ret == -1)
+			return (0);
+		buffer_save = ft_strjoin(buffer_save, buffer_tmp);
+		index = is_back_slash_n(buffer_tmp);
 	}
-	if (buffer_save == NULL)
-	{
-		//buffer_save = buffer_nl;
-		//printf("\n%s\n", buffer_nl);
-		buffer_save = ft_strjoin(buffer_save, buffer_nl);
-		//printf("\n%s\n", buffer_save);
-		//printf("\nok\n");
-	}
-	buffer_save = ft_strjoin(buffer_save, buffer);
+	*buffer = buffer_tmp;
 	return (buffer_save);
 }
 
@@ -87,28 +87,23 @@ char	*get_next_line(int fd)
 {
 	char			*buffer;
 	char			*buffer_save;
-	long int		index;
-	ssize_t			ret;
-	//static char		*buffer_nl;
+	static char		*buffer_nl;
 
-	index = BUFFER_SIZE;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	buffer_save = NULL;
-	while (index == BUFFER_SIZE)
+	if (buffer_nl != NULL)
 	{
-		buffer = malloc(sizeof(*buffer) * (BUFFER_SIZE + 1));
-			if (buffer == NULL)
-				return (0);
-		ret = fill_buffer(fd, buffer);
-		if (ret == -1)
-			return (0); /// mouuuuuuaiiiii
-		index = is_back_slash_n(buffer);
-		buffer_save = put_in_save(buffer, buffer_save, index, ret);
+		buffer_save = ft_strjoin(buffer_save, buffer_nl);
+		if (is_back_slash_n(buffer_nl) < ft_strlen(buffer_nl))
+		{
+			buffer_nl = ft_strcut(buffer_nl, is_back_slash_n(buffer_nl) + 1);
+			return (buffer_save);
+		}
+		free(buffer_nl);
 	}
-	/*
-	printf("\n------------The last buffer is :------------"
-			"\n%s\n\n------------And the buffer_save is :-------------"
-			"\n%s\n", buffer, buffer_save);
-	printf("\n-------------STOP------------\n");
-	*/
+	buffer_save = ft_save_buffer(&buffer, buffer_save, fd);
+	buffer_nl = buffer_nl_save(buffer, is_back_slash_n(buffer));
+	free(buffer);
 	return (buffer_save);
 }
