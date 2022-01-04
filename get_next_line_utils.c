@@ -6,13 +6,13 @@
 /*   By: nle-bret <nle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:32:41 by nle-bret          #+#    #+#             */
-/*   Updated: 2021/12/18 01:28:17 by nle-bret         ###   ########.fr       */
+/*   Updated: 2022/01/04 14:04:58 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(const char *a)
+long int	ft_strlen(const char *a)
 {
 	long int	i;
 
@@ -73,7 +73,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	long int		len2;
 
 	len1 = ft_strlen(s1);
-	len2 = is_back_slash_n(s2) + 1;
+	if (s2[0] != '\0')
+		len2 = is_back_slash_n(s2) + 1;
+	else
+		len2 = 0;
+	if (len1 + len2 == 0)
+		return (NULL);
 	str = malloc(sizeof(*str) * (len1 + len2 + 1));
 	if (str == NULL)
 		return (NULL);

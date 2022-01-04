@@ -6,7 +6,7 @@
 /*   By: nle-bret <nle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:17:43 by nle-bret          #+#    #+#             */
-/*   Updated: 2021/12/18 01:33:18 by nle-bret         ###   ########.fr       */
+/*   Updated: 2022/01/04 14:07:23 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(void)
 {
 	int			fd;
 	char		*src;
+	//int			index;
 
 	src = NULL;
 	fd = open("text", O_RDONLY);
