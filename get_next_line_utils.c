@@ -6,7 +6,7 @@
 /*   By: nle-bret <nle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:32:41 by nle-bret          #+#    #+#             */
-/*   Updated: 2022/01/04 14:04:58 by nle-bret         ###   ########.fr       */
+/*   Updated: 2022/01/05 15:58:59 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ long int	ft_strlen(const char *a)
 	i = 0;
 	if (a == NULL)
 		return (0);
-	while (a[i] != 0)
-	{
+	while (a[i])
 		i++;
-	}
 	return (i);
 }
 
@@ -71,7 +69,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	char			*str;
 	long int		len1;
 	long int		len2;
-
+	
 	len1 = ft_strlen(s1);
 	if (s2[0] != '\0')
 		len2 = is_back_slash_n(s2) + 1;
