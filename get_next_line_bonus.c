@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nle-bret <nle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:25:53 by nle-bret          #+#    #+#             */
-/*   Updated: 2022/01/06 11:38:42 by nle-bret         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:50:23 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 ssize_t	fill_buffer(int fd, char *buffer)
 {
@@ -25,7 +25,7 @@ ssize_t	fill_buffer(int fd, char *buffer)
 	return (-1);
 }
 
-int	is_back_slash_n(char *buffer)
+int	is_bsn(char *buffer)
 {
 	unsigned int	i;
 
@@ -77,36 +77,36 @@ char	*ft_save_buffer(char **buffer, char *buffer_save, int fd)
 		if (ret == -1)
 			return (0);
 		buffer_save = ft_strjoin(buffer_save, *buffer);
-		index = is_back_slash_n(*buffer);
+		index = is_bsn(*buffer);
 	}
 	return (buffer_save);
 }
 
 char	*get_next_line(int fd)
 {
-	char			*buffer;
+	char			*buffer[4096];
 	char			*buffer_save;
-	static char		*buffer_nl = NULL;
+	static char		*buffer_nl[4096];
 
 	buffer_save = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (buffer_nl != NULL)
+	if (buffer_nl[fd] != NULL)
 	{
-		buffer_save = ft_strjoin(buffer_save, buffer_nl);
-		if (is_back_slash_n(buffer_nl) < ft_strlen(buffer_nl))
+		buffer_save = ft_strjoin(buffer_save, buffer_nl[fd]);
+		if (is_bsn(buffer_nl[fd]) < ft_strlen(buffer_nl[fd]))
 		{
-			buffer_nl = ft_strcut(buffer_nl, is_back_slash_n(buffer_nl) + 1);
+			buffer_nl[fd] = ft_strcut(buffer_nl[fd], is_bsn(buffer_nl[fd]) + 1);
 			return (buffer_save);
 		}
-		free(buffer_nl);
+		free(buffer_nl[fd]);
 	}
-	buffer_save = ft_save_buffer(&buffer, buffer_save, fd);
+	buffer_save = ft_save_buffer(&buffer[fd], buffer_save, fd);
 	if (buffer_save == NULL)
 	{
-		free(buffer);
+		free(buffer[fd]);
 		return (NULL);
 	}
-	buffer_nl = buffer_nl_save(buffer, is_back_slash_n(buffer));
+	buffer_nl[fd] = buffer_nl_save(buffer[fd], is_bsn(buffer[fd]));
 	return (buffer_save);
 }

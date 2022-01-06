@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nle-bret <nle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:32:41 by nle-bret          #+#    #+#             */
-/*   Updated: 2022/01/06 11:34:39 by nle-bret         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:53:28 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 long int	ft_strlen(const char *a)
 {
@@ -72,7 +72,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	len1 = ft_strlen(s1);
 	if (s2[0] != '\0')
-		len2 = is_back_slash_n(s2) + 1;
+		len2 = is_bsn(s2) + 1;
 	else
 		len2 = 0;
 	if (len1 + len2 == 0)
