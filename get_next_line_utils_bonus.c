@@ -6,7 +6,7 @@
 /*   By: nle-bret <nle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:32:41 by nle-bret          #+#    #+#             */
-/*   Updated: 2022/01/06 11:53:28 by nle-bret         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:16:07 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ char	*ft_strcut(char	*str, long int index)
 	i = 0;
 	len = ft_strlen(str);
 	little = malloc(sizeof(*little) * (len - index + 1));
+	if (little == NULL)
+		return (NULL);
 	while (index + i < len)
 	{
 		little[i] = str[index + i];

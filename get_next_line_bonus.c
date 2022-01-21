@@ -6,7 +6,7 @@
 /*   By: nle-bret <nle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:25:53 by nle-bret          #+#    #+#             */
-/*   Updated: 2022/01/06 11:50:23 by nle-bret         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:22:55 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ char	*ft_save_buffer(char **buffer, char *buffer_save, int fd)
 
 char	*get_next_line(int fd)
 {
-	char			*buffer[4096];
+	char			*buffer[OPEN_MAX];
 	char			*buffer_save;
-	static char		*buffer_nl[4096];
+	static char		*buffer_nl[OPEN_MAX];
 
 	buffer_save = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)

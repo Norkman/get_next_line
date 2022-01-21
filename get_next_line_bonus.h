@@ -6,12 +6,15 @@
 /*   By: nle-bret <nle-bret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:22:58 by nle-bret          #+#    #+#             */
-/*   Updated: 2022/01/06 11:54:47 by nle-bret         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:21:53 by nle-bret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H 
+# define GET_NEXT_LINE_BONUS_H
+# ifndef OPEN_MAX
+#  define OPEN_MAX 1024
+# endif
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
